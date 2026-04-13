@@ -1,126 +1,121 @@
 import streamlit as st
 
-# إعدادات الصفحة - layout="wide" عشان يعطي مساحة زي ترتيل
-st.set_page_config(page_title="حبوبة ستوديو - صانع الفيديوهات القرآنية", page_icon="📖", layout="wide")
+import streamlit as st
 
-# كود التجميل الجذري (CSS) ليحاكي تصميم ترتيل ستوديو
+# إعدادات الصفحة - العرض الكامل
+st.set_page_config(page_title="حبوبة ستوديو - جنة الإبداع", page_icon="🌿", layout="wide")
+
+# كود التجميل (CSS) - خلفية طبيعية وتنسيق احترافي للموبايل
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
     
-    /* الخلفية الداكنة الفخمة والخط العام */
+    /* خلفية طبيعية مريحة للعين (جنة) */
     .stApp {
-        background-color: #0d1117; /* لون خلفية ترتيل الداكن */
-        color: #e6edf3;
+        background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
+                    url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1000');
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    html, body, [class*="st-"] {
         font-family: 'Cairo', sans-serif;
         direction: rtl;
         text-align: right;
     }
 
-    /* العناوين الكبيرة والشيك */
-    h1 { color: #ffffff; font-size: 36px !important; text-align: center; font-weight: 700; margin-bottom: 5px; }
-    h3 { color: #e6edf3; font-size: 20px !important; font-weight: 600; border-bottom: 2px solid #238636; padding-bottom: 10px; margin-top: 30px;}
+    /* تنسيق الخطوات (Tabs) لتكون واضحة ومبهرة */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        border-radius: 15px;
+    }
 
-    /* تأثيرات الأزرار (Buttons) - نفس ستايل ترتيل */
-    .stButton>button {
-        width: 100%;
+    .stTabs [data-baseweb="tab"] {
+        background-color: transparent;
         border-radius: 10px;
-        background-color: #238636; /* أخضر ترتيل */
-        color: white;
-        border: 1px solid rgba(240,246,252,0.1);
-        padding: 15px;
+        color: #2e7d32;
         font-weight: bold;
-        font-size: 18px;
-        transition: all 0.2s ease-in-out;
-    }
-    .stButton>button:hover {
-        background-color: #2ea043; /* أخضر فاتح عند المرور */
-        border-color: #8b949e;
-        transform: translateY(-2px); /* حركة خفيفة */
+        padding: 10px 20px;
     }
 
-    /* تأثير عند الضغط (Active) */
-    .stButton>button:active {
-        transform: translateY(1px) scale(0.99);
+    .stTabs [aria-selected="true"] {
+        background-color: #2e7d32 !important;
+        color: white !important;
     }
 
-    /* زر التليجرام المميز */
+    /* زر التليجرام المبهر */
     .tele-container {
         display: flex;
         justify-content: center;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
     }
     .tele-button {
         background-color: #0088cc;
         color: white !important;
-        padding: 12px 30px;
+        padding: 12px 25px;
         border-radius: 50px;
         text-decoration: none;
         font-weight: bold;
-        font-size: 16px;
-        transition: 0.3s;
         box-shadow: 0 4px 15px rgba(0,136,204,0.4);
-    }
-    .tele-button:hover {
-        background-color: #00aaff;
-        transform: scale(1.05);
+        transition: 0.3s;
     }
 
-    /* تجميل خانات الاختيار والرفع */
-    .stSelectbox label, .stFileUploader label, .stRadio label, .stSlider label {
-        font-size: 16px !important;
-        color: #8b949e !important;
-    }
-    .stSelectbox div[data-baseweb="select"] {
-        border-radius: 8px;
-        background-color: #161b22;
-        border: 1px solid #30363d;
-    }
-
-    /* تنسيق نظام "التبويبات" (Tabs) ليصبح مثل Steppers ترتيل */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 15px;
-        justify-content: center;
-        background-color: #161b22;
-        padding: 10px;
-        border-radius: 15px;
-        border: 1px solid #30363d;
-    }
-    .stTabs [data-baseweb="tab"] {
-        height: 60px;
-        background-color: transparent;
-        border-radius: 10px;
-        color: #8b949e;
-        padding: 10px 30px;
-        font-weight: 600;
-        font-size: 16px;
+    /* الأزرار الخضراء */
+    .stButton>button {
+        width: 100%;
+        border-radius: 12px;
+        background: #2e7d32;
+        color: white;
+        font-weight: bold;
         border: none;
-    }
-    .stTabs [data-baseweb="tab"]:hover {
-        color: #ffffff;
-        background-color: #21262d;
-    }
-    .stTabs [aria-selected="true"] {
-        background-color: #238636 !important;
-        color: #ffffff !important;
-        box-shadow: 0 4px 10px rgba(35,134,54,0.3);
+        padding: 10px;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# 1️⃣ العنوان الرئيسي
-st.title("📖 حبوبة ستوديو لصناعة المقاطع القرآنية ✨")
+# 1️⃣ العنوان
+st.title("🌿 حبوبة ستوديو الاحترافي ✨")
 
-# 2️⃣ زر التليجرام المميز في المقدمة (لزيادة المشتركين)
+# 2️⃣ أيقونة التليجرام في أول الصفحة (طلبك الأساسي)
 st.markdown("""
     <div class="tele-container">
-        <a href="https://t.me/اسم_قناتك" class="tele-button">🚀 انضمي لقناة التليجرام الآن</a>
+        <a href="https://t.me/Quraan_Utla9" class="tele-button">📢 انضمي لقناة التليجرام الآن</a>
     </div>
 """, unsafe_allow_html=True)
 
-st.write("<p style='text-align: center; color: #8b949e;'>استوديو متكامل لتحويل التلاوات الصوتية إلى مرئيات مذهلة. بلمستك الإبداعية.</p>", unsafe_allow_html=True)
+st.write("<p style='text-align: center; color: #1b5e20; font-weight: bold;'>صممي مقطعك القرآني خطوة بخطوة</p>", unsafe_allow_html=True)
 
-# --- نظام الظهور "خطوة خطوة" المستوحى من ترتيل ---
+# 3️⃣ نظام الخطوات (التبويبات)
+step1, step2, step3 = st.tabs(["🔊 القارئ", "🖼️ الخلفية", "✍️ الخط والآيات"])
 
-# استخدام التبويبات Tabs كـ Steppers
-step1, step2, step3 = st.tabs(["1. الصوت والقارئ 🔊", "2. الخلفية والتصميم 🖼️", "3. النص
+with step1:
+    st.subheader("اختر التلاوة")
+    qari = st.selectbox("اسم القارئ:", ["المنشاوي (مجود)", "عبد الباسط (مرتل)", "الحصري", "رفع ملف خاص"])
+    if qari == "رفع ملف خاص":
+        st.file_uploader("ارفع ملف الصوت (MP3)", type=["mp3"])
+
+with step2:
+    st.subheader("تصميم المشهد")
+    bg = st.radio("نوع الخلفية:", ["طبيعة خلابة", "مخطوطات إسلامية", "رفع صورة خاصة"])
+    if bg == "رفع صورة خاصة":
+        st.file_uploader("ارفع صورتك")
+    st.slider("تعتيم الخلفية", 0, 100, 40)
+
+with step3:
+    st.subheader("تخصيص الآيات (طلبك الخاص)")
+    col1, col2 = st.columns(2)
+    with col1:
+        font_type = st.selectbox("نوع الخط:", ["العثماني (حفص)", "خط النسخ", "الخط الأميري"])
+        font_color = st.color_picker("لون الخط", "#ffffff")
+    with col2:
+        font_size = st.slider("حجم الخط", 20, 100, 50)
+        display_type = st.radio("ظهور الآيات:", ["كلمة بكلمة", "آية كاملة"])
+
+# زر الإنتاج النهائي
+st.write("---")
+if st.button("🎬 ابدأ بصناعة المقطع"):
+    st.balloons()
+    st.success("تم استلام طلبك! استوديو حبوبة بدأ العمل..")
+
