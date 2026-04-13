@@ -1,64 +1,90 @@
 import streamlit as st
 
 # إعدادات الصفحة
-st.set_page_config(page_title="Quraan_Utla9", page_icon="📖")
+st.set_page_config(page_title="حبوبة ستوديو الاحترافي", page_icon="🌿", layout="centered")
 
 # كود التجميل والتأثيرات (CSS)
 st.markdown("""
     <style>
-    /* تأثير حركة للأزرار */
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+    
+    html, body, [class*="st-"] {
+        font-family: 'Cairo', sans-serif;
+        direction: rtl;
+        text-align: right;
+    }
+    .main {
+        background-color: #f0f4f0; 
+    }
+    
+    h1 { color: #1b5e20; font-size: 30px !important; text-align: center; margin-bottom: 5px; }
+    
+    /* تأثيرات الأزرار */
     .stButton>button {
-        background: linear-gradient(45deg, #0088cc, #005f8d);
-        color: white;
-        border-radius: 12px;
-        border: none;
-        padding: 10px 24px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .stButton>button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(0,136,204,0.4);
-        color: #ffeb3b;
-    }
-    /* تحسين شكل خانات الرفع */
-    .stFileUploader {
-        border: 2px dashed #0088cc;
+        width: 100%;
         border-radius: 15px;
-        padding: 10px;
+        background: linear-gradient(135deg, #4caf50, #2e7d32);
+        color: white;
+        border: none;
+        padding: 12px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .stButton>button:hover {
+        transform: scale(1.02);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    /* زر التليجرام العلوي */
+    .tele-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+    .tele-button {
+        background-color: #0088cc;
+        color: white !important;
+        padding: 10px 25px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(0,136,204,0.3);
+    }
+    .tele-button:hover {
+        background-color: #006699;
+        transform: translateY(-2px);
     }
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-st.title("📖 Quraan_Utla9")
-st.subheader("✨ أداة حبوبة الاحترافية")
+# العنوان
+st.title("🌿 حبوبة ستوديو لصناعة المقاطع القرآنية ✨")
 
-# شريط جانبي (قناة التليجرام)
-with st.sidebar:
-    st.markdown("### 📢 قناة المشروع")
-    st.link_button("انضمي لـ Quraan_Utla9 🚀", "https://t.me/YourChannelLink")
+# --- قسم التليجرام في أول الصفحة ---
+st.markdown("""
+    <div class="tele-container">
+        <a href="https://t.me/Quraan_Utla9" class="tele-button">📢 انضمي لقناة التليجرام الآن</a>
+    </div>
+""", unsafe_allow_html=True)
 
-# --- الخطوة 1: الملفات الأساسية ---
-st.write("### 1️⃣ ارفع الوسائط")
-col1, col2 = st.columns(2)
-with col1:
-    bg = st.file_uploader("صورة الخلفية", type=["jpg", "png"])
-with col2:
-    audio = st.file_uploader("ملف الصوت", type=["mp3", "wav"])
+st.write("<p style='text-align: center; color: #555;'>مساحتك الإبداعية لنشر كلام الله بأجمل صورة</p>", unsafe_allow_html=True)
 
-# --- الخطوة 2: ميزة الخطوط المخصصة ---
-st.write("### 2️⃣ الخطوط والتصميم")
-custom_font = st.file_uploader("لو عندك خط معين حابه تضيفيه (اختياري)", type=["ttf", "otf"])
-if custom_font:
-    st.success(f"تم اعتماد الخط: {custom_font.name} ✅")
+# الخطوات
+with st.expander("1️⃣ اختر القارئ (أصوات جاهزة أو ارفع ملفك)", expanded=True):
+    qari_option = st.selectbox("القائمة الصوتية:", ["المنشاوي (مجود)", "عبد الباسط (مرتل)", "الحصري (المصحف المعلم)", "رفع تلاوة من جهازي"])
+    if qari_option == "رفع تلاوة من جهازي":
+        st.file_uploader("ارفع ملف MP3", type=["mp3"])
 
-# --- الخطوة 3: التخصيص ---
-mode = st.radio("طريقة العرض:", ["آية كاملة", "كلمة بكلمة"])
+with st.expander("2️⃣ اختر التصميم والخلفية"):
+    bg_style = st.radio("ستايل الخلفية:", ["مناظر طبيعية هادئة", "مخطوطات إسلامية", "خلفية سوداء فخمة"])
+    st.slider("وضوح الخط القرآني", 20, 100, 80)
 
-# زر التنفيذ مع تأثيرات
-if st.button("توليد الفيديو السحري 🎬"):
-    if bg and audio:
-        st.balloons()
-        st.success("أداة حبوبة بدأت السحر.. جاري المعالجة! ✨")
-    else:
-        st.warning("يا حبوبة، محتاجين الصورة والصوت الأول 😅")
+# زر التشغيل
+st.write("---")
+if st.button("🎬 ابدأ بصناعة المقطع الآن"):
+    st.balloons()
+    st.success("جاري دمج الصوت مع الصورة.. ثواني ويكون مقطعك جاهزاً!")
+
