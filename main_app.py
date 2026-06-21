@@ -4,7 +4,7 @@ import streamlit as st
 st.set_page_config(page_title="Habiba Studio Pro", layout="wide", initial_sidebar_state="collapsed")
 
 # رابط قناة التليجرام الخاصة بكِ (استبدلي الرابط برابط قناتك الحقيقي)
-telegram_link = "https://t.me/your_channel_link"
+telegram_link = "https://t.me/Quraan_Utla9"
 
 # 2. كود CSS مخصص لشريط التليجرام العلوي والواجهة الاحترافية
 st.markdown(f"""
