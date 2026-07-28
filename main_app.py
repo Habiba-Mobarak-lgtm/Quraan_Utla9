@@ -1,16 +1,16 @@
 import streamlit as st
 
-# 1. إعداد الصفحة لتكون بعرض كامل وأنيق
+# 1. إعداد الصفحة
 st.set_page_config(page_title="Habiba Studio Pro", layout="wide", initial_sidebar_state="collapsed")
 
-# رابط قناة التليجرام الخاصة بكِ (استبدلي الرابط برابط قناتك الحقيقي)
+# رابط قناة التليجرام الخاص بكِ
 telegram_link = "https://t.me/Quraan_Utla9"
 
-# 2. كود CSS مخصص لشريط التليجرام العلوي والواجهة الاحترافية
-st.markdown(f"""
+# 2. كود CSS مخصص (تم إزالة الـ f-string لتجنب أخطاء الأقواس)
+st.markdown("""
     <style>
-    /* شريط التليجرام العلوي الاحترافي */
-    .telegram-bar {{
+    /* شريط التليجرام العلوي */
+    .telegram-bar {
         background: linear-gradient(90deg, #0088cc, #00a2ed);
         color: white !important;
         text-align: center;
@@ -23,18 +23,18 @@ st.markdown(f"""
         text-decoration: none !important;
         box-shadow: 0px 4px 15px rgba(0, 136, 204, 0.3);
         transition: transform 0.2s;
-    }}
-    .telegram-bar:hover {{
+    }
+    .telegram-bar:hover {
         transform: scale(1.01);
         color: #f0f0f0 !important;
-    }}
+    }
 
-    /* تعديل اتجاه التطبيق للعربية */
-    .main {{ direction: rtl; text-align: right; }}
-    div[data-testid="stVerticalBlock"] {{ direction: rtl; }}
+    /* تعديل الاتجاه */
+    .main { direction: rtl; text-align: right; }
+    div[data-testid="stVerticalBlock"] { direction: rtl; }
     
-    /* ستايل صندوق المعاينة الطولي (يشبه مقاس الريلز 9:16) */
-    .phone-preview {{
+    /* صندوق المعاينة */
+    .phone-preview {
         border: 4px solid #262730;
         border-radius: 25px;
         background-color: #000000;
@@ -49,18 +49,17 @@ st.markdown(f"""
         justify-content: center;
         align-items: center;
         padding: 20px;
-    }}
+    }
     
-    /* تحسين شكل التبويبات (Tabs) لتصبح كالأزرار الاحترافية */
-    button[data-baseweb="tab"] {{
+    button[data-baseweb="tab"] {
         font-size: 16px !important;
         font-weight: bold !important;
         padding: 10px 20px !important;
-    }}
+    }
     </style>
 """, unsafe_allowed_html=True)
 
-# --- شريط التليجرام في أعلى الصفحة تماماً ---
+# --- شريط التليجرام في أعلى الصفحة ---
 st.markdown(f'<a class="telegram-bar" href="{telegram_link}" target="_blank">📢 انضم لقناة التيليجرام الآن واشترك في المحتوى الحصري!</a>', unsafe_allowed_html=True)
 
 # الهيدر العلوي للتطبيق
@@ -68,14 +67,13 @@ st.title("🌿 Habiba Studio Pro")
 st.caption("استوديو متكامل لتصميم الفيديوهات والآيات القرآنية باحترافية")
 st.write("---")
 
-# 3. تقسيم الشاشة لعمودين (المعاينة على اليمين لسهولة الرؤية، والتحكم على اليسار)
-col_preview, col_control = st.columns([1, 1.5])
+# 3. تقسيم الشاشة لعمودين (استخدام أرقام صحيحة لتجنب أي أخطاء في الـ Layout)
+col_preview, col_control = st.columns([1, 2])
 
-# --- لوحة التحكم (العمود الأيسر المستوحى من Tarteel Studio) ---
+# --- لوحة التحكم (العمود الأيسر) ---
 with col_control:
     st.subheader("🛠️ خيارات التخصيص")
     
-    # تقسيم الإعدادات لتبويبات علوية تماماً مثل الموقع
     tab_text, tab_audio, tab_bg, tab_font = st.tabs(["📝 النص", "🎵 الصوت والقراء", "🎬 الخلفية", "🎨 الخطوط"])
     
     # --- تبويب النص ---
@@ -97,10 +95,6 @@ with col_control:
             st.caption(f"سيتم تشغيل صوت {reader} تلقائياً عند التصدير.")
         else:
             uploaded_audio = st.file_uploader("اختر ملف الصوت من جهازك (MP3 / WAV):", type=["mp3", "wav"])
-            
-        enable_reverb = st.checkbox("إضافة صدى صوت للمسجد (Reverb)")
-        if enable_reverb:
-            reverb_intensity = st.slider("قوة الصدى:", 0, 100, 40)
 
     # --- تبويب الخلفية ---
     with tab_bg:
@@ -108,10 +102,10 @@ with col_control:
         
         if bg_type == "رفع فيديو مخصص":
             uploaded_video = st.file_uploader("ارفع فيديو الخلفية (MP4):", type=["mp4", "mov"])
-            bg_opacity = st.slider("تعتيم خلفية الفيديو (Overlay):", 0, 100, 50)
         else:
             uploaded_image = st.file_uploader("ارفع صورة الخلفية (JPG / PNG):", type=["jpg", "png"])
-            bg_opacity = st.slider("تعتيم صورة الخلفية (Overlay):", 0, 100, 50)
+            
+        bg_opacity = st.slider("تعتيم الخلفية (Overlay):", 0, 100, 50)
 
     # --- تبويب الخطوط ---
     with tab_font:
@@ -123,30 +117,32 @@ with col_control:
         st.markdown("**📁 إضافة خطوط مخصصة**")
         uploaded_font = st.file_uploader("ارفع ملف خط من جهازك لتطبيقه (TTF / OTF):", type=["ttf", "otf"])
 
-# --- شاشة المعاينة الحية اللايف (العمود الأيمن) ---
+# --- شاشة المعاينة (العمود الأيمن) ---
 with col_preview:
     st.markdown("<h3 style='text-align: center;'>📺 شاشة المعاينة (9:16)</h3>", unsafe_allowed_html=True)
     
-    # صندوق محاكاة الموبايل (الريلز)
-    st.markdown(f"""
+    # تجهيز المتغيرات قبل دمجها لتجنب أي أخطاء برمجية
+    opacity_value = bg_opacity / 100
+    basmala_html = "<p style='color:#aaaaaa; font-size:16px;'>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>" if show_basmala else ""
+    
+    # صندوق محاكاة الموبايل
+    preview_html = f"""
         <div class="phone-preview">
-            <!-- محاكاة التعتيم فوق الخلفية -->
-            <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,{bg_opacity/100}); z-index: 1;"></div>
+            <!-- التعتيم فوق الخلفية -->
+            <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,{opacity_value}); z-index: 1;"></div>
             
-            <!-- النص القرآني المنسق -->
+            <!-- النص القرآني -->
             <div style="z-index: 2; text-align: center; padding: 10px;">
-                {"<p style='color:#aaaaaa; font-size:16px;'>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>" if show_basmala else ""}
+                {basmala_html}
                 <p style="color: {font_color}; font-size: {font_size}px; text-shadow: 2px 2px 8px {shadow_color}; font-weight: bold; line-height: 1.6;">
                     {verse_text}
                 </p>
             </div>
         </div>
-    """, unsafe_allowed_html=True)
+    """
     
-    # زر التصدير النهائي أسفل شاشة المعاينة ليصبح التطبيق تفاعلياً
+    st.markdown(preview_html, unsafe_allowed_html=True)
+    
     st.write("")
     if st.button("🎬 تصدير المقطع النهائي", use_container_width=True, type="primary"):
         st.success("جاري تجهيز وتصدير المقطع بأعلى دقة...")
-
-
-
